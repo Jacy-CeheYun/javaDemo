@@ -4,7 +4,7 @@ spring:
   activemq:
     user: admin
     password: admin
-    broker-url: tcp://192.168.153.129:61616
+    broker-url: tcp://local:61611
     pool:
       enabled: true
       max-connections: 10
