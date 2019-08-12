@@ -1,10 +1,10 @@
 server:
-  port: 80
+  port: 8080
 spring:
   activemq:
     user: admin
     password: admin
-    broker-url: tcp://local:61611
+    broker-url: tcp://localhost:61616
     pool:
       enabled: true
       max-connections: 10
