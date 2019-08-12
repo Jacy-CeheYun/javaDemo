@@ -1,5 +1,7 @@
 package com.demo.activemq.produce.controller;
 
+import com.demo.activemq.produce.pojo.Username;
+import com.demo.activemq.produce.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -10,7 +12,7 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 
 /**
- * @author: elvin
+ * @author: Jacy
  */
 @RestController
 @RequestMapping("/publish")
@@ -25,26 +27,24 @@ public class PublishController {
     @Autowired
     private Topic topic;
 
-    @RequestMapping("/queue")
-    public String queue(){
+    @Autowired
+    private LoginService loginService;
 
-        for (int i = 0; i < 10 ; i++){
-            jms.convertAndSend(queue, "queue"+i);
-        }
-
-        return "queue 发送成功";
+    @RequestMapping("/login")
+    public String login(Username username) {
+        return loginService.login(username);
     }
 
     @JmsListener(destination = "out.queue")
-    public void consumerMsg(String msg){
+    public void consumerMsg(String msg) {
         System.out.println(msg);
     }
 
     @RequestMapping("/topic")
-    public String topic(){
+    public String topic() {
 
-        for (int i = 0; i < 10 ; i++){
-            jms.convertAndSend(topic, "topic"+i);
+        for (int i = 0; i < 10; i++) {
+            jms.convertAndSend(topic, "topic" + i);
         }
 
         return "topic 发送成功";
